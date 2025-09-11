@@ -31,6 +31,10 @@ public class SchoolManagementSystem {
 
     public static void studentManagementMenu(Scanner input) {
         boolean studentMenu = true;
+        int studentID = 0;
+        String studentName = "";
+        int studentMarks = 0;
+
         while (studentMenu) {
             System.out.println("\n--Student Management--");
             System.out.println("1. Add a New Student");
@@ -40,9 +44,34 @@ public class SchoolManagementSystem {
             System.out.print("Enter your choice: ");
             int studentChoice = input.nextInt();
 
-            if (studentChoice == 0) {
-                studentMenu = false;
+            switch (studentChoice) {
+                case 1 :
+                    System.out.print("Enter Student ID: ");
+                    studentID = input.nextInt();
+                    System.out.print("Enter Student Name: ");
+                    studentName = input.next();
+                    System.out.print("Enter Student Marks: ");
+                    studentMarks = input.nextInt();
+                    System.out.println("Student added successfully!");
+                    break;
+
+                case 2:
+                    if (studentID != 0) {
+                        System.out.println("\n--Student List--");
+                        System.out.println("ID: " + studentID + ", Name: " + studentName + ", Marks: " + studentMarks);
+                    } else {
+                        System.out.println("No student found.");
+                    }
+                    break;
+                case 0:
+                    studentMenu = false;
+                    break;
+
+
             }
+            // if (studentChoice == 0) {
+            //     studentMenu = false;
+            // }
         }
     }
 
