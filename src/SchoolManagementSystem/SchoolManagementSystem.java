@@ -11,9 +11,24 @@ public class SchoolManagementSystem {
             System.out.print("Enter your choice: ");
             int choice = input.nextInt();
 
-            if (choice == 0) {
-                System.out.println("Thank you for using the School Management System. Goodbye!");
-                break;
+            switch (choice) {
+                case 1:
+                    System.out.println("Navigating to Student Management ");
+                    break;
+                case 2:
+                    System.out.println("Navigating to Teacher Management ");
+                    break;
+                case 3:
+                    System.out.println("Navigating to Library Management ");
+                    break;
+                case 4:
+                    System.out.println("Navigating to Reports ");
+                    break;
+                case 0:
+                    System.out.println("Thank you for using the School Management System. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 0 and 4.");
             }
         }
     }
