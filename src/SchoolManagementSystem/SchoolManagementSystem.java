@@ -80,11 +80,15 @@ public class SchoolManagementSystem {
                         System.out.println("No students found");
 
                     } else {
-                        System.out.println("\n--Student List--");
+                        System.out.println("\n---Student List---");
+                        System.out.println("+-------+--------------------+-------+");
+                        System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
+                        System.out.println("+-------+--------------------+-------+");
                         for (int i = 0; i < studentCount; i++) {
-                            System.out.println("ID: " + studentIDs[i] + ", Name: " + studentNames[i] + ", Marks: "
-                                    + studentMarks[i]);
+                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                                    studentMarks[i]);
                         }
+                        System.out.println("+-------+--------------------+-------+");
                     }
                 }
                 case 0 -> {
