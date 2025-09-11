@@ -21,8 +21,10 @@ public class SchoolManagementSystem {
             System.out.println("3. Library Management");
             System.out.println("4. Reports");
             System.out.println("0. Exit");
+
+
             System.out.print("Enter your choice: ");
-            int choice = input.nextInt();
+            int choice = readIntSafe(input);
 
             switch (choice) {
                 case 1 -> {
@@ -54,21 +56,20 @@ public class SchoolManagementSystem {
         while (studentMenu) {
             System.out.println("\n--Student Management--");
             System.out.println("1. Add a New Student");
-            System.out.println("2. List All Students"
-            );
+            System.out.println("2. List All Students");
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter your choice: ");
-            int studentChoice = input.nextInt();
+            int studentChoice = readIntSafe(input);
 
             switch (studentChoice) {
                 case 1 -> {
                     if (studentCount < MAX_Students) {
                         System.out.print("Enter Student ID: ");
-                        studentIDs[studentCount] = input.nextInt();
+                        studentIDs[studentCount] = readIntSafe(input);
                         System.out.print("Enter Student Name: ");
                         studentNames[studentCount] = input.next();
                         System.out.print("Enter Student Marks: ");
-                        studentMarks[studentCount] = input.nextInt();
+                        studentMarks[studentCount] = readIntSafe(input);
                         studentCount++;
                         System.out.println("Student added successfully!");
                     } else {
@@ -101,6 +102,22 @@ public class SchoolManagementSystem {
                 }
             }
         }
+    }
+
+    private static int readIntSafe(Scanner input) {
+        while (true) {
+
+            if (input.hasNextInt()) {
+                int value = input.nextInt();
+                input.nextLine(); // Clear the newline character
+                return value;
+            } else {
+                System.out.println("Error: Invalid input. Please enter a whole number.");
+                System.out.print("Enter your choice: ");
+                input.next(); // Clear the invalid input
+            }
+        }
+
     }
 
 }
