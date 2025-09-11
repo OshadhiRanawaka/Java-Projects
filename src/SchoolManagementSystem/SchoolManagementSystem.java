@@ -11,6 +11,11 @@ public class SchoolManagementSystem {
             System.out.print("Enter your choice: ");
             int choice = input.nextInt();
 
+            if (choice == 0) {
+                System.out.println("Thank you for using the School Management System. Goodbye!");
+                break;
+            }
         }
     }
+
 }
