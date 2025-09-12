@@ -126,6 +126,29 @@ public class SchoolManagementSystem {
                         }
                     }
                 }
+                case 5 -> {
+                    System.out.print("Enter the Student ID to delete: ");
+                    int deleteID = readIntSafe(input);
+
+                    for (int i = 0; i < studentCount; i++) {
+                        if (studentIDs[i] == deleteID) {
+                            System.out.println("Found Student: " + studentNames[i]
+                                    + ". Are you sure you want to delete? (yes/no): ");
+                            String confirmation = input.next();
+
+                            if (confirmation.equalsIgnoreCase("yes")) {
+                                for (int j = i; j < studentCount - 1; j++) {
+                                    studentIDs[j] = studentIDs[j + 1];
+                                    studentNames[j] = studentNames[j + 1];
+                                    studentMarks[j] = studentMarks[j + 1];
+                                }
+                                studentCount--;
+                                System.out.println("Student with ID " + deleteID + " has been deleted.");
+
+                            }
+                        }
+                    }
+                }
                 case 0 -> {
                     studentMenu = false;
                     break;
