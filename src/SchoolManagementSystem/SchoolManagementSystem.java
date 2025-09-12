@@ -186,6 +186,7 @@ public class SchoolManagementSystem {
         System.out.println("2. Find Highest and Lowest Marks");
         System.out.println("3. View Full Class Performance Report");
         System.out.println("4. Rank Students by Marks");
+        System.out.println("5. View Top 2 Students");
         System.out.println("0. Back to Main Menu: ");
         System.out.print("Enter your choice:");
         int analysisChoice = readIntSafe(input);
@@ -232,6 +233,20 @@ public class SchoolManagementSystem {
                     System.out.println("Sorting Students...");
                     sortStudentMarks();
                     System.out.println("Students have been ranked. Please use 'List All Students' to view.");
+                }
+                case 5 -> {
+                    sortStudentMarks();
+
+                    System.out.println("Top 2 Students:");
+                    System.out.println("+-------+--------------------+-------+");
+                    System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
+                    System.out.println("+-------+--------------------+-------+");
+                    for (int i = 0; i < 2; i++) {
+                        System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                                studentMarks[i]);
+                    }
+                    System.out.println("+-------+--------------------+-------+");
+
                 }
                 default -> {
                     System.out.println("Invalid choice. Please enter a number between 0 and 3.");
@@ -294,7 +309,6 @@ public class SchoolManagementSystem {
                     studentNames[j + 1] = tempName;
 
                 }
-
 
             }
         }
