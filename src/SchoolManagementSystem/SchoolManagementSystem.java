@@ -22,7 +22,6 @@ public class SchoolManagementSystem {
             System.out.println("4. Reports");
             System.out.println("0. Exit");
 
-
             System.out.print("Enter your choice: ");
             int choice = readIntSafe(input);
 
@@ -57,6 +56,9 @@ public class SchoolManagementSystem {
             System.out.println("\n--Student Management--");
             System.out.println("1. Add a New Student");
             System.out.println("2. List All Students");
+            System.out.println("3. Search for a Student by ID");
+            System.out.println("4. Update a Student's Marks");
+            System.out.println("5. Delete a Student");
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter your choice: ");
             int studentChoice = readIntSafe(input);
@@ -86,10 +88,28 @@ public class SchoolManagementSystem {
                         System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
                         System.out.println("+-------+--------------------+-------+");
                         for (int i = 0; i < studentCount; i++) {
-                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                            System.out.printf("| %-6d | %-20s | %-4d|\n", studentIDs[i], studentNames[i],
                                     studentMarks[i]);
                         }
                         System.out.println("+-------+--------------------+-------+");
+                    }
+                }
+                case 3 -> {
+                    System.out.print("Enter the Student ID to search for: ");
+                    int searchID = readIntSafe(input);
+                    for (int i = 0; i < studentCount; i++) {
+                        if (studentIDs[i] == searchID) {
+                            System.out.println("--- Student Found ---");
+                            System.out.println("+------+--------------------+------+");
+                            System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
+                            System.out.println("+------+--------------------+------+");
+                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                                    studentMarks[i]);
+                            System.out.println("+------+--------------------+------+");
+                            break;
+                        } else {
+                            System.out.println("Student not found.");
+                        }
                     }
                 }
                 case 0 -> {
