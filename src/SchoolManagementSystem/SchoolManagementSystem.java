@@ -188,24 +188,49 @@ public class SchoolManagementSystem {
         System.out.print("Enter your choice:");
         int analysisChoice = readIntSafe(input);
 
-        switch (analysisChoice) {
-            case 1 -> {
-                System.out.println("Calculating class average...");
+        if (studentCount > 0) {
+            switch (analysisChoice) {
+                case 1 -> {
+                    System.out.println("Calculating class average...");
 
-                int totalMarks = 0;
-                for (int i = 0; i < studentCount; i++) {
-                    totalMarks += studentMarks[i];
+                    int totalMarks = 0;
+                    for (int i = 0; i < studentCount; i++) {
+                        totalMarks += studentMarks[i];
+                    }
+                    System.out.println("Total marks of all " + studentCount + " students: " + totalMarks);
+
+                    double average = (double) totalMarks / studentCount;
+                    System.out.println("Class Average Mark: " + average);
+
                 }
-                System.out.println("Total marks of all " + studentCount + " students: " + totalMarks);
 
-                double average = (double) totalMarks / studentCount;
-                System.out.println("Class Average Mark: " + average);
+                case 2 -> {
+                    System.out.println("Analyzing scores...");
 
+                    int highestMark = studentMarks[0];
+                    int lowestMark = studentMarks[0];
+
+                    for (int i = 1; i < studentCount; i++) {
+                        if (studentMarks[i] > highestMark) {
+                            highestMark = studentMarks[i];
+                        }
+                        if (studentMarks[i] < lowestMark) {
+                            lowestMark = studentMarks[i];
+                        }
+                    }
+
+                    System.out.println("Highest Mark in the Class: " + highestMark);
+                    System.out.println("Lowest Mark in the Class: " + lowestMark);
+
+                }
+                default -> {
+                    System.out.println("Invalid choice. Please enter a number between 0 and 3.");
+                    break;
+                }
             }
-            default -> {
-                System.out.println("Invalid choice. Please enter a number between 0 and 3.");
-                break;
-            }
+
+        } else {
+            System.out.println("Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
         }
 
     }
