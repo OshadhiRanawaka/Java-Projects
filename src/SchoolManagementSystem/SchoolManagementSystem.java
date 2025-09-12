@@ -185,6 +185,7 @@ public class SchoolManagementSystem {
         System.out.println("1. Calculate Class Average Mark");
         System.out.println("2. Find Highest and Lowest Marks");
         System.out.println("3. View Full Class Performance Report");
+        System.out.println("4. Rank Students by Marks");
         System.out.println("0. Back to Main Menu: ");
         System.out.print("Enter your choice:");
         int analysisChoice = readIntSafe(input);
@@ -226,6 +227,11 @@ public class SchoolManagementSystem {
                 }
                 case 3 -> {
                     performanceReport();
+                }
+                case 4 -> {
+                    System.out.println("Sorting Students...");
+                    sortStudentMarks();
+                    System.out.println("Students have been ranked. Please use 'List All Students' to view.");
                 }
                 default -> {
                     System.out.println("Invalid choice. Please enter a number between 0 and 3.");
@@ -269,6 +275,29 @@ public class SchoolManagementSystem {
         System.out.printf("| %-25s | %-7d |\n", "Lowest Mark", lowestMark);
         System.out.println("+-------------------------+-------+");
 
+    }
+
+    public static void sortStudentMarks() {
+        for (int i = 0; i < studentCount - 1; i++) {
+            for (int j = 0; j < studentCount - 1 - i; j++) {
+                if (studentMarks[j] < studentMarks[j + 1]) {
+                    int temp = studentMarks[j];
+                    studentMarks[j] = studentMarks[j + 1];
+                    studentMarks[j + 1] = temp;
+
+                    int tempID = studentIDs[j];
+                    studentIDs[j] = studentIDs[j + 1];
+                    studentIDs[j + 1] = tempID;
+
+                    String tempName = studentNames[j];
+                    studentNames[j] = studentNames[j + 1];
+                    studentNames[j + 1] = tempName;
+
+                }
+
+
+            }
+        }
     }
 
 }
