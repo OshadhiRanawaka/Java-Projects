@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class SchoolManagementSystem {
 
-    static final int MAX_Students = 2;
+    static final int MAX_Students = 3;
     static int[] studentIDs = new int[MAX_Students];
     static String[] studentNames = new String[MAX_Students];
     static int[] studentMarks = new int[MAX_Students];
@@ -34,7 +34,7 @@ public class SchoolManagementSystem {
                     System.out.println("Navigating to Teacher Management ");
                 case 3 ->
                     System.out.println("Navigating to Library Management ");
-                case 4 ->{
+                case 4 -> {
                     System.out.println("Navigating to Student Analysis ");
                     studentAnalysis(input);
                 }
@@ -188,8 +188,26 @@ public class SchoolManagementSystem {
         System.out.print("Enter your choice:");
         int analysisChoice = readIntSafe(input);
 
+        switch (analysisChoice) {
+            case 1 -> {
+                System.out.println("Calculating class average...");
+
+                int totalMarks = 0;
+                for (int i = 0; i < studentCount; i++) {
+                    totalMarks += studentMarks[i];
+                }
+                System.out.println("Total marks of all " + studentCount + " students: " + totalMarks);
+
+                double average = (double) totalMarks / studentCount;
+                System.out.println("Class Average Mark: " + average);
+
+            }
+            default -> {
+                System.out.println("Invalid choice. Please enter a number between 0 and 3.");
+                break;
+            }
+        }
+
     }
-
-
 
 }
