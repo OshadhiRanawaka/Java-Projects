@@ -108,7 +108,21 @@ public class SchoolManagementSystem {
                             System.out.println("+------+--------------------+------+");
                             break;
                         } else {
-                            System.out.println("Student not found.");
+                            System.out.println("Student with ID " + searchID + " not found.");
+                        }
+                    }
+                }
+                case 4 -> {
+                    System.out.print("Enter the Student ID to update: ");
+                    int updateID = readIntSafe(input);
+                    for (int i = 0; i < studentCount; i++) {
+                        if (studentIDs[i] == updateID) {
+                            System.out.println(
+                                    "Found Student : " + studentNames[i] + " (Current Marks: " + studentMarks[i] + ")");
+                            System.out.print("Enter new Marks: ");
+                            int updateMark = readIntSafe(input);
+                            studentMarks[i] = updateMark;
+                            System.out.println("Student marks updated successfully!");
                         }
                     }
                 }
