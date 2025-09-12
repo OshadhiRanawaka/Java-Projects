@@ -19,7 +19,7 @@ public class SchoolManagementSystem {
             System.out.println("1. Student Management");
             System.out.println("2. Teacher Management");
             System.out.println("3. Library Management");
-            System.out.println("4. Reports");
+            System.out.println("4. Student Analysis");
             System.out.println("0. Exit");
 
             System.out.print("Enter your choice: ");
@@ -34,8 +34,10 @@ public class SchoolManagementSystem {
                     System.out.println("Navigating to Teacher Management ");
                 case 3 ->
                     System.out.println("Navigating to Library Management ");
-                case 4 ->
-                    System.out.println("Navigating to Reports ");
+                case 4 ->{
+                    System.out.println("Navigating to Student Analysis ");
+                    studentAnalysis(input);
+                }
                 case 0 -> {
                     System.out.println("Thank you for using the School Management System. Goodbye!");
                     return;
@@ -44,6 +46,22 @@ public class SchoolManagementSystem {
                     System.out.println("Invalid choice. Please enter a number between 0 and 4.");
             }
         }
+    }
+
+    private static int readIntSafe(Scanner input) {
+        while (true) {
+
+            if (input.hasNextInt()) {
+                int value = input.nextInt();
+                input.nextLine(); // Clear the newline character
+                return value;
+            } else {
+                System.out.println("Error: Invalid input. Please enter a whole number.");
+                System.out.print("Enter your choice: ");
+                input.next(); // Clear the invalid input
+            }
+        }
+
     }
 
     public static void studentManagementMenu(Scanner input) {
@@ -84,14 +102,14 @@ public class SchoolManagementSystem {
 
                     } else {
                         System.out.println("\n---Student List---");
-                        System.out.println("+-------+--------------------+-------+");
-                        System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
-                        System.out.println("+-------+--------------------+-------+");
+                        System.out.println("+---------+---------------------+---------+");
+                        System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
+                        System.out.println("+---------+---------------------+---------+");
                         for (int i = 0; i < studentCount; i++) {
-                            System.out.printf("| %-6d | %-20s | %-4d|\n", studentIDs[i], studentNames[i],
+                            System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i],
                                     studentMarks[i]);
                         }
-                        System.out.println("+-------+--------------------+-------+");
+                        System.out.println("+---------+---------------------+---------+");
                     }
                 }
                 case 3 -> {
@@ -100,12 +118,12 @@ public class SchoolManagementSystem {
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == searchID) {
                             System.out.println("--- Student Found ---");
-                            System.out.println("+------+--------------------+------+");
-                            System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
-                            System.out.println("+------+--------------------+------+");
-                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                            System.out.println("+---------+---------------------+---------+");
+                            System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
+                            System.out.println("+---------+---------------------+---------+");
+                            System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i],
                                     studentMarks[i]);
-                            System.out.println("+------+--------------------+------+");
+                            System.out.println("+---------+---------------------+---------+");
                             break;
                         } else {
                             System.out.println("Student with ID " + searchID + " not found.");
@@ -161,20 +179,17 @@ public class SchoolManagementSystem {
         }
     }
 
-    private static int readIntSafe(Scanner input) {
-        while (true) {
-
-            if (input.hasNextInt()) {
-                int value = input.nextInt();
-                input.nextLine(); // Clear the newline character
-                return value;
-            } else {
-                System.out.println("Error: Invalid input. Please enter a whole number.");
-                System.out.print("Enter your choice: ");
-                input.next(); // Clear the invalid input
-            }
-        }
+    public static void studentAnalysis(Scanner input) {
+        System.out.println("\n--- Student Analysis Menu ---");
+        System.out.println("1. Calculate Class Average Mark");
+        System.out.println("2. Find Highest and Lowest Marks");
+        System.out.println("3. View Full Class Performance Report");
+        System.out.println("0. Back to Main Menu: ");
+        System.out.print("Enter your choice:");
+        int analysisChoice = readIntSafe(input);
 
     }
+
+
 
 }
