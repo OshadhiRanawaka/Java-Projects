@@ -50,7 +50,6 @@ public class SchoolManagementSystem {
 
     private static int readIntSafe(Scanner input) {
         while (true) {
-
             if (input.hasNextInt()) {
                 int value = input.nextInt();
                 input.nextLine(); // Clear the newline character
@@ -115,19 +114,21 @@ public class SchoolManagementSystem {
                 case 3 -> {
                     System.out.print("Enter the Student ID to search for: ");
                     int searchID = readIntSafe(input);
+                    boolean found = false;
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == searchID) {
                             System.out.println("--- Student Found ---");
-                            System.out.println("+---------+---------------------+---------+");
-                            System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
-                            System.out.println("+---------+---------------------+---------+");
-                            System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i],
-                                    studentMarks[i]);
-                            System.out.println("+---------+---------------------+---------+");
+                            System.out.println("+-------+--------------------+-------+");
+                            System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
+                            System.out.println("+-------+--------------------+-------+");
+                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i], studentMarks[i]);
+                            System.out.println("+-------+--------------------+-------+");
+                            found = true;
                             break;
-                        } else {
-                            System.out.println("Student with ID " + searchID + " not found.");
                         }
+                    }
+                    if (!found) {
+                        System.out.println("Student not found.");
                     }
                 }
                 case 4 -> {
@@ -223,6 +224,9 @@ public class SchoolManagementSystem {
                     System.out.println("Lowest Mark in the Class: " + lowestMark);
 
                 }
+                case 3 -> {
+                    performanceReport();
+                }
                 default -> {
                     System.out.println("Invalid choice. Please enter a number between 0 and 3.");
                     break;
@@ -230,8 +234,40 @@ public class SchoolManagementSystem {
             }
 
         } else {
-            System.out.println("Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
+            System.out.println(
+                    "Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
         }
+
+    }
+
+    public static void performanceReport() {
+        int totalMarks = 0;
+        int highestMark = studentMarks[0];
+        int lowestMark = studentMarks[0];
+
+        for (int i = 0; i < studentCount; i++) {
+            totalMarks += studentMarks[i];
+        }
+        double average = (double) totalMarks / studentCount;
+
+        for (int i = 1; i < studentCount; i++) {
+            if (studentMarks[i] > highestMark) {
+                highestMark = studentMarks[i];
+            }
+            if (studentMarks[i] < lowestMark) {
+                lowestMark = studentMarks[i];
+            }
+        }
+
+        System.out.println("--- Class Performance Report ---");
+        System.out.println("+-------------------------+-------+");
+        System.out.printf("|%-25s | %-8s |\n", "Metric", "Value");
+        System.out.println("+-------------------------+-------+");
+        System.out.printf("| %-25s | %-7d |\n", "Total Students", studentCount);
+        System.out.printf("| %-25s | %-7.2f |\n", "Average Mark", (double) average);
+        System.out.printf("| %-25s | %-7d |\n", "Highest Mark", highestMark);
+        System.out.printf("| %-25s | %-7d |\n", "Lowest Mark", lowestMark);
+        System.out.println("+-------------------------+-------+");
 
     }
 
