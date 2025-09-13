@@ -1,6 +1,9 @@
+
 import java.util.Scanner;
 import utils.Greeter;
+import utils.SafeInputReader;
 import utils.StudentPrinter;
+
 public class SchoolManagementSystem {
 
     static final int MAX_Students = 3;
@@ -24,7 +27,7 @@ public class SchoolManagementSystem {
             System.out.println("0. Exit");
 
             System.out.print("Enter your choice: ");
-            int choice = readIntSafe(input);
+            int choice = SafeInputReader.readIntSafe(0, 4, "Invalid choice. Please enter a number between 0 and 4.");
 
             switch (choice) {
                 case 1 -> {
@@ -43,8 +46,8 @@ public class SchoolManagementSystem {
                     System.out.println("Thank you for using the School Management System. Goodbye!");
                     return;
                 }
-                default ->
-                    System.out.println("Invalid choice. Please enter a number between 0 and 4.");
+                // default ->
+                //     System.out.println("Invalid choice. Please enter a number between 0 and 4.");
             }
         }
     }
@@ -66,9 +69,9 @@ public class SchoolManagementSystem {
 
     public static void studentManagementMenu(Scanner input) {
         boolean studentMenu = true;
-        int studentID = 0;
-        String studentName = "";
-        int studentMark = 0;
+        // int studentID = 0;
+        // String studentName = "";
+        // int studentMark = 0;
 
         while (studentMenu) {
             System.out.println("\n--Student Management--");
@@ -79,7 +82,7 @@ public class SchoolManagementSystem {
             System.out.println("5. Delete a Student");
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter your choice: ");
-            int studentChoice = readIntSafe(input);
+            int studentChoice = SafeInputReader.readIntSafe(0, 5, "Invalid choice. Please enter a number between 0 and 5.");
 
             switch (studentChoice) {
                 case 1 -> {
@@ -87,7 +90,8 @@ public class SchoolManagementSystem {
                         System.out.print("Enter Student ID: ");
                         studentIDs[studentCount] = readIntSafe(input);
                         System.out.print("Enter Student Name: ");
-                        studentNames[studentCount] = input.next();
+                        studentNames[studentCount] = SafeInputReader.readNonEmptyLine("Error: Input cannot be empty.");
+                        // studentNames[studentCount] = input.next();
                         System.out.print("Enter Student Marks: ");
                         studentMarks[studentCount] = readIntSafe(input);
                         studentCount++;
@@ -99,7 +103,6 @@ public class SchoolManagementSystem {
                 case 2 -> {
                     if (studentCount == 0) {
                         StudentPrinter.studentNotFound("No students found");
-                        // System.out.println("No students found");
 
                     } else {
                         StudentPrinter.printHeader("Student List");
@@ -107,11 +110,6 @@ public class SchoolManagementSystem {
                             StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                         }
                         StudentPrinter.printFooter();
-                        // System.out.println("\n---Student List---");
-                        // System.out.println("+=========================================+");
-                        // System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
-                        // System.out.println("+---------+---------------------+---------+");
-                        // System.out.println("+---------+---------------------+---------+");
                     }
                 }
                 case 3 -> {
@@ -122,16 +120,8 @@ public class SchoolManagementSystem {
                             StudentPrinter.printHeader("Student Found");
                             StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                             StudentPrinter.printFooter();
-
-                            // System.out.println("--- Student Found ---");
-                            // System.out.println("+=========================================+");
-                            // System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
-                            // System.out.println("+-------+--------------------+-------+");
-                            // System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i], studentMarks[i]);
-                            // System.out.println("+-------+--------------------+-------+");
                         } else {
                             StudentPrinter.studentNotFound("Student with ID " + searchID + " not found.");
-                            // System.out.println("Student with ID " + searchID + " not found.");
                         }
                     }
                 }
@@ -193,7 +183,7 @@ public class SchoolManagementSystem {
         System.out.println("5. View Top 2 Students");
         System.out.println("0. Back to Main Menu: ");
         System.out.print("Enter your choice:");
-        int analysisChoice = readIntSafe(input);
+        int analysisChoice = SafeInputReader.readIntSafe(0, 5, "Invalid choice. Please enter a number between 0 and 5.");
 
         if (studentCount > 0) {
             switch (analysisChoice) {
@@ -246,30 +236,12 @@ public class SchoolManagementSystem {
                         StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                     }
                     StudentPrinter.printFooter();
-                    // System.out.println("Top 2 Students:");
-                    // System.out.println("+-------+--------------------+-------+");
-                    // System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
-                    // System.out.println("+-------+--------------------+-------+");
-
-                        // System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
-                        //         studentMarks[i]);
-
-                    // System.out.println("+-------+--------------------+-------+");
-
-                }
-                default -> {
-                    System.out.println("Invalid choice. Please enter a number between 0 and 3.");
-                    break;
                 }
             }
-
         } else {
             StudentPrinter.studentNotFound(
                     "Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
-            // System.out.println(
-            //         "Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
         }
-
     }
 
     public static void performanceReport() {
@@ -300,7 +272,6 @@ public class SchoolManagementSystem {
         System.out.printf("| %-25s | %-7d |\n", "Highest Mark", highestMark);
         System.out.printf("| %-25s | %-7d |\n", "Lowest Mark", lowestMark);
         System.out.println("+-------------------------+-------+");
-
     }
 
     public static void sortStudentMarks() {
@@ -320,9 +291,7 @@ public class SchoolManagementSystem {
                     studentNames[j + 1] = tempName;
 
                 }
-
             }
         }
     }
-
 }
