@@ -98,38 +98,41 @@ public class SchoolManagementSystem {
                 }
                 case 2 -> {
                     if (studentCount == 0) {
-                        System.out.println("No students found");
+                        StudentPrinter.studentNotFound("No students found");
+                        // System.out.println("No students found");
 
                     } else {
-                        System.out.println("\n---Student List---");
-                        System.out.println("+=========================================+");
-                        System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
-                        System.out.println("+---------+---------------------+---------+");
+                        StudentPrinter.printHeader("Student List");
                         for (int i = 0; i < studentCount; i++) {
                             StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                         }
-                        System.out.println("+---------+---------------------+---------+");
+                        StudentPrinter.printFooter();
+                        // System.out.println("\n---Student List---");
+                        // System.out.println("+=========================================+");
+                        // System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
+                        // System.out.println("+---------+---------------------+---------+");
+                        // System.out.println("+---------+---------------------+---------+");
                     }
                 }
                 case 3 -> {
                     System.out.print("Enter the Student ID to search for: ");
                     int searchID = readIntSafe(input);
-                    boolean found = false;
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == searchID) {
-                            System.out.println("--- Student Found ---");
-                            System.out.println("+=========================================+");
-                            System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
-                            System.out.println("+-------+--------------------+-------+");
+                            StudentPrinter.printHeader("Student Found");
                             StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
+                            StudentPrinter.printFooter();
+
+                            // System.out.println("--- Student Found ---");
+                            // System.out.println("+=========================================+");
+                            // System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
+                            // System.out.println("+-------+--------------------+-------+");
                             // System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i], studentMarks[i]);
-                            System.out.println("+-------+--------------------+-------+");
-                            found = true;
-                            break;
+                            // System.out.println("+-------+--------------------+-------+");
+                        } else {
+                            StudentPrinter.studentNotFound("Student with ID " + searchID + " not found.");
+                            // System.out.println("Student with ID " + searchID + " not found.");
                         }
-                    }
-                    if (!found) {
-                        System.out.println("Student not found.");
                     }
                 }
                 case 4 -> {
@@ -238,15 +241,20 @@ public class SchoolManagementSystem {
                 case 5 -> {
                     sortStudentMarks();
 
-                    System.out.println("Top 2 Students:");
-                    System.out.println("+-------+--------------------+-------+");
-                    System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
-                    System.out.println("+-------+--------------------+-------+");
+                    StudentPrinter.printHeader("Top 2 Students");
                     for (int i = 0; i < 2; i++) {
-                        System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
-                                studentMarks[i]);
+                        StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                     }
-                    System.out.println("+-------+--------------------+-------+");
+                    StudentPrinter.printFooter();
+                    // System.out.println("Top 2 Students:");
+                    // System.out.println("+-------+--------------------+-------+");
+                    // System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
+                    // System.out.println("+-------+--------------------+-------+");
+
+                        // System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i],
+                        //         studentMarks[i]);
+
+                    // System.out.println("+-------+--------------------+-------+");
 
                 }
                 default -> {
@@ -256,8 +264,10 @@ public class SchoolManagementSystem {
             }
 
         } else {
-            System.out.println(
+            StudentPrinter.studentNotFound(
                     "Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
+            // System.out.println(
+            //         "Error: Cannot perform analysis. There are no students in the system.\nPlease add students first.");
         }
 
     }
