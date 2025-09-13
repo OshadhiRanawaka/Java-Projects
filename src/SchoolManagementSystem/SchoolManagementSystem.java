@@ -1,6 +1,6 @@
-
 import java.util.Scanner;
-
+import utils.Greeter;
+import utils.StudentPrinter;
 public class SchoolManagementSystem {
 
     static final int MAX_Students = 3;
@@ -11,6 +11,7 @@ public class SchoolManagementSystem {
 
     public static void main(String[] args) {
         System.out.println("Welcome to CyberCrewz Academy\nSchool Management System V1\nCode name: River");
+        Greeter.sayHello();
 
         Scanner input = new Scanner(System.in);
 
@@ -101,12 +102,11 @@ public class SchoolManagementSystem {
 
                     } else {
                         System.out.println("\n---Student List---");
-                        System.out.println("+---------+---------------------+---------+");
+                        System.out.println("+=========================================+");
                         System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
                         System.out.println("+---------+---------------------+---------+");
                         for (int i = 0; i < studentCount; i++) {
-                            System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i],
-                                    studentMarks[i]);
+                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
                         }
                         System.out.println("+---------+---------------------+---------+");
                     }
@@ -118,10 +118,11 @@ public class SchoolManagementSystem {
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == searchID) {
                             System.out.println("--- Student Found ---");
+                            System.out.println("+=========================================+");
+                            System.out.printf("|%-7s | %-19s | %-7s|\n", "ID", "Name", "Marks");
                             System.out.println("+-------+--------------------+-------+");
-                            System.out.printf("|%-7s | %-20s | %-5s|\n", "ID", "Name", "Marks");
-                            System.out.println("+-------+--------------------+-------+");
-                            System.out.printf("| %-7d | %-20s | %-5d|\n", studentIDs[i], studentNames[i], studentMarks[i]);
+                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
+                            // System.out.printf("| %-7d | %-19s | %-7d|\n", studentIDs[i], studentNames[i], studentMarks[i]);
                             System.out.println("+-------+--------------------+-------+");
                             found = true;
                             break;
