@@ -9,7 +9,12 @@ public class SchoolManagementSystem {
     static final int MAX_STUDENTS = 3;
     static int[] studentIDs = new int[MAX_STUDENTS];
     static String[] studentNames = new String[MAX_STUDENTS];
-    static int[] studentMarks = new int[MAX_STUDENTS];
+    static double[] Marks = new double[MAX_STUDENTS];
+
+    // For grading scheme
+    static int[] finalExamMarks = new int[MAX_STUDENTS];
+    static int[] midtermMarks = new int[MAX_STUDENTS];
+    static int[] homeworkMarks = new int[MAX_STUDENTS];
     static int studentCount = 0;
 
     public static void main(String[] args) {
@@ -122,7 +127,7 @@ public class SchoolManagementSystem {
                         studentNames[studentCount] = SafeInputReader.readNonEmptyLine("Error: Input cannot be empty.");
                         // studentNames[studentCount] = input.next();
                         System.out.print("Enter Student Marks: ");
-                        studentMarks[studentCount] = readIntSafe(input);
+                        Marks[studentCount] = readIntSafe(input);
                         studentCount++;
                         System.out.println("Student added successfully!");
                     } else {
@@ -136,7 +141,7 @@ public class SchoolManagementSystem {
                     } else {
                         StudentPrinter.printHeader("Student List");
                         for (int i = 0; i < studentCount; i++) {
-                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
+                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], finalExamMarks[i], midtermMarks[i], homeworkMarks[i], Marks[i]);
                         }
                         StudentPrinter.printFooter();
                     }
@@ -147,7 +152,7 @@ public class SchoolManagementSystem {
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == searchID) {
                             StudentPrinter.printHeader("Student Found");
-                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
+                            StudentPrinter.printStudentList(studentIDs[i], studentNames[i], finalExamMarks[i], midtermMarks[i], homeworkMarks[i], Marks[i]);
                             StudentPrinter.printFooter();
                         } else {
                             StudentPrinter.studentNotFound("Student with ID " + searchID + " not found.");
@@ -160,10 +165,20 @@ public class SchoolManagementSystem {
                     for (int i = 0; i < studentCount; i++) {
                         if (studentIDs[i] == updateID) {
                             System.out.println(
-                                    "Found Student : " + studentNames[i] + " (Current Marks: " + studentMarks[i] + ")");
-                            System.out.print("Enter new Marks: ");
-                            int updateMark = readIntSafe(input);
-                            studentMarks[i] = updateMark;
+                                    "Found Student : " + studentNames[i] + " (Current Marks: " + Marks[i] + ")");
+                            System.out.print("Enter score for Final Exam (0-100): ");
+                            int updateFianlExam = readIntSafe(input);
+                            finalExamMarks[i] = updateFianlExam;
+                            System.out.print("Enter score for Midterm (0-100): ");
+                            int updateMidterm = readIntSafe(input);
+                            midtermMarks[i] = updateMidterm;
+                            System.out.print("Enter score for Homework (0-100): ");
+                            int updateHomework = readIntSafe(input);
+                            homeworkMarks[i] = updateHomework;
+
+                            System.out.print("Enter new total marks: ");
+                            double studentMarks = input.nextDouble();
+                            Marks[i] = studentMarks;
                             System.out.println("Student marks updated successfully!");
                         }
                     }
@@ -182,7 +197,7 @@ public class SchoolManagementSystem {
                                 for (int j = i; j < studentCount - 1; j++) {
                                     studentIDs[j] = studentIDs[j + 1];
                                     studentNames[j] = studentNames[j + 1];
-                                    studentMarks[j] = studentMarks[j + 1];
+                                    Marks[j] = Marks[j + 1];
                                 }
                                 studentCount--;
                                 System.out.println("Student with ID " + deleteID + " has been deleted.");
@@ -221,7 +236,7 @@ public class SchoolManagementSystem {
 
                     int totalMarks = 0;
                     for (int i = 0; i < studentCount; i++) {
-                        totalMarks += studentMarks[i];
+                        totalMarks += Marks[i];
                     }
                     System.out.println("Total marks of all " + studentCount + " students: " + totalMarks);
 
@@ -233,15 +248,15 @@ public class SchoolManagementSystem {
                 case 2 -> {
                     System.out.println("Analyzing scores...");
 
-                    int highestMark = studentMarks[0];
-                    int lowestMark = studentMarks[0];
+                    int highestMark = (int)Marks[0];
+                    int lowestMark = (int)Marks[0];
 
                     for (int i = 1; i < studentCount; i++) {
-                        if (studentMarks[i] > highestMark) {
-                            highestMark = studentMarks[i];
+                        if (Marks[i] > highestMark) {
+                            highestMark = (int)Marks[i];
                         }
-                        if (studentMarks[i] < lowestMark) {
-                            lowestMark = studentMarks[i];
+                        if (Marks[i] < lowestMark) {
+                            lowestMark = (int)Marks[i];
                         }
                     }
 
@@ -262,7 +277,7 @@ public class SchoolManagementSystem {
 
                     StudentPrinter.printHeader("Top 2 Students");
                     for (int i = 0; i < 2; i++) {
-                        StudentPrinter.printStudentList(studentIDs[i], studentNames[i], studentMarks[i]);
+                        StudentPrinter.printStudentList(studentIDs[i], studentNames[i], finalExamMarks[i], midtermMarks[i], homeworkMarks[i], Marks[i]);
                     }
                     StudentPrinter.printFooter();
                 }
@@ -275,20 +290,20 @@ public class SchoolManagementSystem {
 
     public static void performanceReport() {
         int totalMarks = 0;
-        int highestMark = studentMarks[0];
-        int lowestMark = studentMarks[0];
+        int highestMark = (int)Marks[0];
+        int lowestMark = (int)Marks[0];
 
         for (int i = 0; i < studentCount; i++) {
-            totalMarks += studentMarks[i];
+            totalMarks += Marks[i];
         }
         double average = (double) totalMarks / studentCount;
 
         for (int i = 1; i < studentCount; i++) {
-            if (studentMarks[i] > highestMark) {
-                highestMark = studentMarks[i];
+            if (Marks[i] > highestMark) {
+                highestMark = (int)Marks[i];
             }
-            if (studentMarks[i] < lowestMark) {
-                lowestMark = studentMarks[i];
+            if (Marks[i] < lowestMark) {
+                lowestMark = (int)Marks[i];
             }
         }
 
@@ -306,10 +321,10 @@ public class SchoolManagementSystem {
     public static void sortStudentMarks() {
         for (int i = 0; i < studentCount - 1; i++) {
             for (int j = 0; j < studentCount - 1 - i; j++) {
-                if (studentMarks[j] < studentMarks[j + 1]) {
-                    int temp = studentMarks[j];
-                    studentMarks[j] = studentMarks[j + 1];
-                    studentMarks[j + 1] = temp;
+                if (Marks[j] < Marks[j + 1]) {
+                    int temp = (int)Marks[j];
+                    Marks[j] = Marks[j + 1];
+                    Marks[j + 1] = temp;
 
                     int tempID = studentIDs[j];
                     studentIDs[j] = studentIDs[j + 1];
