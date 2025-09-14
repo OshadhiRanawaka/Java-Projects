@@ -6,10 +6,10 @@ import utils.StudentPrinter;
 
 public class SchoolManagementSystem {
 
-    static final int MAX_Students = 3;
-    static int[] studentIDs = new int[MAX_Students];
-    static String[] studentNames = new String[MAX_Students];
-    static int[] studentMarks = new int[MAX_Students];
+    static final int MAX_STUDENTS = 3;
+    static int[] studentIDs = new int[MAX_STUDENTS];
+    static String[] studentNames = new String[MAX_STUDENTS];
+    static int[] studentMarks = new int[MAX_STUDENTS];
     static int studentCount = 0;
 
     public static void main(String[] args) {
@@ -24,10 +24,11 @@ public class SchoolManagementSystem {
             System.out.println("2. Teacher Management");
             System.out.println("3. Library Management");
             System.out.println("4. Student Analysis");
+            System.out.println("5. Grading Scheme Configuration");
             System.out.println("0. Exit");
 
             System.out.print("Enter your choice: ");
-            int choice = SafeInputReader.readIntSafe(0, 4, "Invalid choice. Please enter a number between 0 and 4.");
+            int choice = SafeInputReader.readIntSafe(0, 5, "Invalid choice. Please enter a number between 0 and 5.");
 
             switch (choice) {
                 case 1 -> {
@@ -41,6 +42,34 @@ public class SchoolManagementSystem {
                 case 4 -> {
                     System.out.println("Navigating to Student Analysis ");
                     studentAnalysis(input);
+                }
+                case 5 -> {
+                    System.out.println("--- Grading Schema Setup ---");
+                    System.out.println(
+                            "You will define the components of the final grade.\nAll weights must sum to 1.0 (e.g., 0.6 for 60%).");
+
+                    while (true) {
+                        double totalSum = 1.0;
+                        System.out.print("Enter weight for 'Final Exam': ");
+                        double finalExamWeight = input.nextDouble();
+                        System.out.print("Enter weight for 'Midterm': ");
+                        double midtermWeight = input.nextDouble();
+                        System.out.print("Enter weight for 'Homework': ");
+                        double homeworkWeight = input.nextDouble();
+
+                        double sum = finalExamWeight + midtermWeight + homeworkWeight;
+
+                        if (sum == totalSum) {
+                            System.out.println("Checking weights... " + finalExamWeight + " + " + midtermWeight + " + "
+                                    + homeworkWeight + " = " + sum);
+
+                            System.out.println("Success! Grading scheme has been configured for this session");
+                            break;
+                        } else {
+                            System.out.println("Error: Weights must sum to 1.0. Please try again.");
+                        }
+                    }
+
                 }
                 case 0 -> {
                     System.out.println("Thank you for using the School Management System. Goodbye!");
@@ -86,7 +115,7 @@ public class SchoolManagementSystem {
 
             switch (studentChoice) {
                 case 1 -> {
-                    if (studentCount < MAX_Students) {
+                    if (studentCount < MAX_STUDENTS) {
                         System.out.print("Enter Student ID: ");
                         studentIDs[studentCount] = readIntSafe(input);
                         System.out.print("Enter Student Name: ");
