@@ -1,10 +1,15 @@
 
 import java.util.Scanner;
+import utils.GradeCalc;
 import utils.Greeter;
 import utils.SafeInputReader;
 import utils.StudentPrinter;
 
 public class SchoolManagementSystem {
+
+    static double finalExamWeight = 0.6;
+    static double midtermWeight = 0.3;
+    static double homeworkWeight = 0.1;
 
     static final int MAX_STUDENTS = 3;
     static int[] studentIDs = new int[MAX_STUDENTS];
@@ -56,11 +61,11 @@ public class SchoolManagementSystem {
                     while (true) {
                         double totalSum = 1.0;
                         System.out.print("Enter weight for 'Final Exam': ");
-                        double finalExamWeight = input.nextDouble();
+                        finalExamWeight = input.nextDouble();
                         System.out.print("Enter weight for 'Midterm': ");
-                        double midtermWeight = input.nextDouble();
+                        midtermWeight = input.nextDouble();
                         System.out.print("Enter weight for 'Homework': ");
-                        double homeworkWeight = input.nextDouble();
+                        homeworkWeight = input.nextDouble();
 
                         double sum = finalExamWeight + midtermWeight + homeworkWeight;
 
@@ -114,21 +119,36 @@ public class SchoolManagementSystem {
             System.out.println("3. Search for a Student by ID");
             System.out.println("4. Update a Student's Marks");
             System.out.println("5. Delete a Student");
+            System.out.println("6. View Final Weighted Grade");
             System.out.println("0. Back to Main Menu");
             System.out.print("Enter your choice: ");
-            int studentChoice = SafeInputReader.readIntSafe(0, 5, "Invalid choice. Please enter a number between 0 and 5.");
+            int studentChoice = SafeInputReader.readIntSafe(0, 6, "Invalid choice. Please enter a number between 0 and 6.");
 
             switch (studentChoice) {
                 case 1 -> {
-                    if (studentCount < MAX_STUDENTS) {
+
+                    if (studentCount <= MAX_STUDENTS) {
                         System.out.print("Enter Student ID: ");
                         studentIDs[studentCount] = readIntSafe(input);
                         System.out.print("Enter Student Name: ");
                         studentNames[studentCount] = SafeInputReader.readNonEmptyLine("Error: Input cannot be empty.");
-                        // studentNames[studentCount] = input.next();
-                        System.out.print("Enter Student Marks: ");
-                        Marks[studentCount] = readIntSafe(input);
+
+                        System.out.print("Enter Student Final Exam Marks: ");
+                        finalExamMarks[studentCount] = readIntSafe(input);
+
+                        System.out.print("Enter Student Midterm Marks: ");
+                        midtermMarks[studentCount] = readIntSafe(input);
+                        System.out.print("Enter Student Homework Marks: ");
+                        homeworkMarks[studentCount] = readIntSafe(input);
+
+                        int[] totalMarks = new int[]{finalExamMarks[studentCount], midtermMarks[studentCount],
+                            homeworkMarks[studentCount]};
+
+                        double[] gradeWeight = {finalExamWeight, midtermWeight, homeworkWeight};
+
+                        Marks[studentCount] = GradeCalc.weightedGrade(totalMarks, gradeWeight, totalMarks.length);
                         studentCount++;
+
                         System.out.println("Student added successfully!");
                     } else {
                         System.out.println("Error: Cannot add more students. The database is full.");
@@ -206,6 +226,9 @@ public class SchoolManagementSystem {
                         }
                     }
                 }
+                case 6 -> {
+
+                }
                 case 0 -> {
                     studentMenu = false;
                     break;
@@ -248,15 +271,15 @@ public class SchoolManagementSystem {
                 case 2 -> {
                     System.out.println("Analyzing scores...");
 
-                    int highestMark = (int)Marks[0];
-                    int lowestMark = (int)Marks[0];
+                    int highestMark = (int) Marks[0];
+                    int lowestMark = (int) Marks[0];
 
                     for (int i = 1; i < studentCount; i++) {
                         if (Marks[i] > highestMark) {
-                            highestMark = (int)Marks[i];
+                            highestMark = (int) Marks[i];
                         }
                         if (Marks[i] < lowestMark) {
-                            lowestMark = (int)Marks[i];
+                            lowestMark = (int) Marks[i];
                         }
                     }
 
@@ -290,8 +313,8 @@ public class SchoolManagementSystem {
 
     public static void performanceReport() {
         int totalMarks = 0;
-        int highestMark = (int)Marks[0];
-        int lowestMark = (int)Marks[0];
+        int highestMark = (int) Marks[0];
+        int lowestMark = (int) Marks[0];
 
         for (int i = 0; i < studentCount; i++) {
             totalMarks += Marks[i];
@@ -300,10 +323,10 @@ public class SchoolManagementSystem {
 
         for (int i = 1; i < studentCount; i++) {
             if (Marks[i] > highestMark) {
-                highestMark = (int)Marks[i];
+                highestMark = (int) Marks[i];
             }
             if (Marks[i] < lowestMark) {
-                lowestMark = (int)Marks[i];
+                lowestMark = (int) Marks[i];
             }
         }
 
@@ -322,7 +345,7 @@ public class SchoolManagementSystem {
         for (int i = 0; i < studentCount - 1; i++) {
             for (int j = 0; j < studentCount - 1 - i; j++) {
                 if (Marks[j] < Marks[j + 1]) {
-                    int temp = (int)Marks[j];
+                    int temp = (int) Marks[j];
                     Marks[j] = Marks[j + 1];
                     Marks[j + 1] = temp;
 

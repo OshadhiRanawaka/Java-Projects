@@ -4,8 +4,8 @@ public class StudentPrinter {
 
     public static void printHeader(String title) {
         System.out.println("--- " + title + " ---");
-        System.out.println("+================================================================================+");
-        System.out.printf("|%-7s | %-19s | %-7s| %-7s| %-7s| %-7s|\n", "ID", "Name", "Final Exam", "Midterm", "Homework", "Marks");
+        System.out.println("+=============================================================+");
+        System.out.printf("|%-7s | %-19s | %-7s| %-7s| %-7s| %-7s|\n", "ID", "Name", "FinalEx", "Midterm", "HomeW", "Marks");
         System.out.println("+-------+--------------------+-------+-------+-------+-------+");
     }
 
