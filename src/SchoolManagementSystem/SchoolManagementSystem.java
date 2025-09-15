@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import utils.AttendanceManager;
 import utils.GradeCalc;
 import utils.Greeter;
 import utils.SafeInputReader;
@@ -16,6 +17,11 @@ public class SchoolManagementSystem {
     static String[] studentNames = new String[MAX_STUDENTS];
     static double[] Marks = new double[MAX_STUDENTS];
 
+    // For attendance
+    static char[][] attendance = new char[MAX_STUDENTS][4]; // Assuming a maximum of 30 days in a month
+    // static boolean P = true;
+    // static boolean A = false;
+
     // For grading scheme
     static int[] finalExamMarks = new int[MAX_STUDENTS];
     static int[] midtermMarks = new int[MAX_STUDENTS];
@@ -25,8 +31,12 @@ public class SchoolManagementSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to CyberCrewz Academy\nSchool Management System V1\nCode name: River");
         Greeter.sayHello();
+        initializeAttendance();
+        //createDummyData();
+
 
         Scanner input = new Scanner(System.in);
+
 
         while (true) {
             System.out.println("--Main Menu--");
@@ -49,7 +59,7 @@ public class SchoolManagementSystem {
                     System.out.println("Navigating to Lab Management ");
                 case 3 -> {
                     System.out.println("Navigating to Attendance Management ");
-                    attendanceManagementMenu(input);
+                    AttendanceManager.attendanceManagementMenu(input, studentNames, studentIDs, attendance, studentCount);
                 }
                 case 4 -> {
                     System.out.println("Navigating to Student Analysis ");
@@ -364,40 +374,88 @@ public class SchoolManagementSystem {
         }
     }
 
-    public static void attendanceManagementMenu(Scanner input) {
-        boolean mainMenu = true;
-        while (mainMenu) {
-            System.out.println("--- Attendance Management ---");
-
-            System.out.println(
-                    "1. Mark Daily Attendance\n2. View Full Attendance Grid\n3. Get Student Attendance Report\n4. List Absentees for a Day\n0. Back to Main Menu");
-            System.out.print("Enter your choice: ");
-            int attendanceChoice = SafeInputReader.readIntSafe(0, 4,
-                    "Invalid choice. Please enter a number between 0 and 4.");
-
-            switch (attendanceChoice) {
-                case 1 -> {
-                    System.out.println("Marking Daily Attendance...");
-                }
-                case 2 -> {
-                    System.out.println("Viewing Full Attendance Grid...");
-                }
-                case 3 -> {
-                    System.out.println("Getting Student Attendance Report...");
-                }
-                case 4 -> {
-                    System.out.println("Listing Absentees for a Day...");
-                }
-                case 0 -> {
-                    mainMenu = false;
-                    break;
-                }
-                default -> {
-                    System.out.println("Invalid choice. Please enter a number between 0 and 4.");
-                    break;
-                }
-            }
+    public static void initializeAttendance() {
+    for (int i = 0; i < studentCount; i++) {
+        for (int j = 0; j < 30; j++) {
+            attendance[i][j] = '-';
         }
-
     }
+}
+    // public static void createDummyData() {
+    //     studentIDs[0] = 101;
+    //     studentIDs[1] = 102;
+    //     studentIDs[2] = 103;
+
+    //     studentNames[0] = "Dil";
+    //     studentNames[1] = "Ozz";
+    //     studentNames[2] = "Bob";
+
+    //     finalExamMarks[0] = 85;
+    //     finalExamMarks[1] = 92;
+    //     finalExamMarks[2] = 78;
+
+    //     midtermMarks[0] = 75;
+    //     midtermMarks[1] = 88;
+    //     midtermMarks[2] = 80;
+
+    //     homeworkMarks[0] = 95;
+    //     homeworkMarks[1] = 90;
+    //     homeworkMarks[2] = 85;
+    // }
+
+    // public static void attendanceManagementMenu (Scanner input) {
+    //     boolean mainMenu = true;
+    //     while (mainMenu) {
+    //         System.out.println("\n--- Attendance Management ---");
+
+    //         System.out.println(
+    //                 "1. Mark Daily Attendance\n2. View Full Attendance Grid\n3. Get Student Attendance Report\n4. List Absentees for a Day\n0. Back to Main Menu");
+    //         System.out.print("Enter your choice: ");
+    //         int attendanceChoice = SafeInputReader.readIntSafe(0, 4,
+    //                 "Invalid choice. Please enter a number between 0 and 4.");
+
+    //         switch (attendanceChoice) {
+    //             case 1 -> {
+    //                 System.out.print("Enter the day to mark attendance for (1-30): ");
+    //                 int day = SafeInputReader.readIntSafe(1, 30, "Invalid input. Please enter a day between 1 and 30.");
+    //                 int dayIndex = day - 1;
+
+    //                 System.out.println("\n--- Marking Attendance for Day " + day + " ---");
+
+    //                 for (int i = 0; i < studentCount; i++) {
+    //                     System.out.print("Student: " + studentNames[i] + "(ID: " + studentIDs[i]
+    //                             + "). Present or Absent? (P/A): ");
+    //                     String status = input.next();
+
+    //                     if (status.equalsIgnoreCase("P")) {
+    //                         attendance[i][dayIndex] = true;
+    //                     } else if (status.equalsIgnoreCase("A")) {
+    //                         attendance[i][dayIndex] = false;
+    //                     } else {
+    //                         System.out.println("Invalid input. Please enter P or A.");
+    //                     }
+    //                 }
+    //                 System.out.println("Attendance for Day " + day + " has been recorded.");
+    //             }
+    //             case 2 -> {
+    //                 System.out.println("Viewing Full Attendance Grid...");
+    //             }
+    //             case 3 -> {
+    //                 System.out.println("Getting Student Attendance Report...");
+    //             }
+    //             case 4 -> {
+    //                 System.out.println("Listing Absentees for a Day...");
+    //             }
+    //             case 0 -> {
+    //                 mainMenu = false;
+    //                 break;
+    //             }
+    //             default -> {
+    //                 System.out.println("Invalid choice. Please enter a number between 0 and 4.");
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    // }
 }
