@@ -31,8 +31,8 @@ public class SchoolManagementSystem {
         while (true) {
             System.out.println("--Main Menu--");
             System.out.println("1. Student Management");
-            System.out.println("2. Teacher Management");
-            System.out.println("3. Library Management");
+            System.out.println("2. Lab Management");
+            System.out.println("3. Attendance Management");
             System.out.println("4. Student Analysis");
             System.out.println("5. Grading Scheme Configuration");
             System.out.println("0. Exit");
@@ -46,9 +46,11 @@ public class SchoolManagementSystem {
                     studentManagementMenu(input);
                 }
                 case 2 ->
-                    System.out.println("Navigating to Teacher Management ");
-                case 3 ->
-                    System.out.println("Navigating to Library Management ");
+                    System.out.println("Navigating to Lab Management ");
+                case 3 -> {
+                    System.out.println("Navigating to Attendance Management ");
+                    attendanceManagementMenu(input);
+                }
                 case 4 -> {
                     System.out.println("Navigating to Student Analysis ");
                     studentAnalysis(input);
@@ -360,5 +362,42 @@ public class SchoolManagementSystem {
                 }
             }
         }
+    }
+
+    public static void attendanceManagementMenu(Scanner input) {
+        boolean mainMenu = true;
+        while (mainMenu) {
+            System.out.println("--- Attendance Management ---");
+
+            System.out.println(
+                    "1. Mark Daily Attendance\n2. View Full Attendance Grid\n3. Get Student Attendance Report\n4. List Absentees for a Day\n0. Back to Main Menu");
+            System.out.print("Enter your choice: ");
+            int attendanceChoice = SafeInputReader.readIntSafe(0, 4,
+                    "Invalid choice. Please enter a number between 0 and 4.");
+
+            switch (attendanceChoice) {
+                case 1 -> {
+                    System.out.println("Marking Daily Attendance...");
+                }
+                case 2 -> {
+                    System.out.println("Viewing Full Attendance Grid...");
+                }
+                case 3 -> {
+                    System.out.println("Getting Student Attendance Report...");
+                }
+                case 4 -> {
+                    System.out.println("Listing Absentees for a Day...");
+                }
+                case 0 -> {
+                    mainMenu = false;
+                    break;
+                }
+                default -> {
+                    System.out.println("Invalid choice. Please enter a number between 0 and 4.");
+                    break;
+                }
+            }
+        }
+
     }
 }
