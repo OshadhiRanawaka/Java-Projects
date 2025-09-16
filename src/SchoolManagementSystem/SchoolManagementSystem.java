@@ -18,7 +18,7 @@ public class SchoolManagementSystem {
     static double[] Marks = new double[MAX_STUDENTS];
 
     // For attendance
-    static char[][] attendance = new char[MAX_STUDENTS][4]; // Assuming a maximum of 30 days in a month
+    static String[][] attendance = new String[MAX_STUDENTS][4]; // Assuming a maximum of 30 days in a month
     // static boolean P = true;
     // static boolean A = false;
 
@@ -377,7 +377,7 @@ public class SchoolManagementSystem {
     public static void initializeAttendance() {
     for (int i = 0; i < studentCount; i++) {
         for (int j = 0; j < 30; j++) {
-            attendance[i][j] = '-';
+            attendance[i][j] = "-";
         }
     }
 }

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class AttendanceManager {
 
-    public static void attendanceManagementMenu(Scanner input, String[] studentNames, int[] studentIDs, char[][] attendance, int studentCount) {
+    public static void attendanceManagementMenu(Scanner input, String[] studentNames, int[] studentIDs, String[][] attendance, int studentCount) {
         boolean mainMenu = true;
         while (mainMenu) {
             System.out.println("\n--- Attendance Management ---");
@@ -29,9 +29,12 @@ public class AttendanceManager {
                         String status = input.next();
 
                         if (status.equalsIgnoreCase("P")) {
-                            attendance[i][dayIndex] = 'P';
+                            attendance[i][dayIndex] = "P";
                         } else if (status.equalsIgnoreCase("A")) {
-                            attendance[i][dayIndex] = 'A';
+                            attendance[i][dayIndex] = "A";
+                        }
+                        else if (status.equalsIgnoreCase("-")) {
+                            attendance[i][dayIndex] = "-";
                         } else {
                             System.out.println("Invalid input. Please enter P or A.");
                         }
@@ -41,18 +44,18 @@ public class AttendanceManager {
                 case 2 -> {
                     System.out.println("\n--- Full Attendance Grid ---(Term 1)");
 
-                    System.out.println("+----------------------+-------+-------+-------+-------+");
-                    System.out.printf("| %-20s | %-7s | %-7s | %-7s | %-7s |\n", "Name", "Day 1",
+                    System.out.println("+----------------------+----------+----------+----------+----------+");
+                    System.out.printf("| %-20s | %-8s | %-8s | %-8s | %-8s |\n", "Name", "Day 1",
                              "Day 2", "Day 3", "Day 4");
-                    System.out.println("+-------------------+-------+-------+-------+-------+");
+                    System.out.println("+----------------------+----------+----------+----------+----------+");
 
                     for (int i = 0; i < studentCount; i++) {
                         System.out.printf("| %-20s ", studentNames[i]);
                         for (int j = 0; j < 4; j++) {
-                            System.out.printf("| %-7s ", attendance[i][j]);
+                            System.out.printf("| %-8s ", attendance[i][j]);
                         }
                         System.out.println();
-                        System.out.println("+----------------------+-------+-------+-------+-------+");
+                        System.out.println("+----------------------+----------+----------+----------+----------+");
 
                     }
                     System.out.println("(P = Present, A = Absent, - = Not Yet Marked)");
